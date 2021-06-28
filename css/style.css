@@ -1,13 +1,39 @@
 body{
-    background-color: #181A1B;
+    background-color: #009688;
     color: #ccc;
     font-family: 'Roboto Slab', serif;
-    margin: 0;
+    margin: 0px;
+    padding: 0px;
 }
-.name{
-    padding-top: 25px;
+p{
+    font-family: 'Roboto', serif;
+    color: #181A1B;
+}
+h2{
+    color: #009688;
+}
+.center{
     text-align: center;
 }
-.subName{
-    text-align: center;
+.details{
+    background-color: #181A1B;
+    padding: 30px 0px;
+}
+.profilePic{
+    width: 200px;
+    border-radius: 50%;
+}
+.icons{
+    color: #ccc;
+    padding: 20px;
+}
+.onlineContact{
+    padding: 30px;
+}
+.card{
+    background-color: #ccc;
+    color: black;
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px 20px;
 }
