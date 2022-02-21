@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Tip Calculator</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-5" style="background-color: #efefef;">
+                <div class="card-body">
+                    <h5 class="card-title">Tip Calculator</h5>
+                    <p class="card-text">Enter an Amount to Calculate Your Total</p>
+                    <div id="alert"></div>
+                    <!-- input field with button -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-4" id="basic-addon0">Area size</span>
+                        <span class="input-group-text col-1" id="basic-addon0">sq.ft</span>
+                        <input type="text" class="form-control col-7" id="areaSize" value="2000" aria-label="Area size" aria-describedby="basic-addon0" onblur="calc()">
+                    </div>
+                    <div class="input-group">
+                        <div class="col-12">
+                            <h5 class="card-title">Materials</h5>
+                        </div>
+                        <span class="input-group-text col-4">Material</span>
+                        <span class="input-group-text col-2">Qty</span>
+                        <span class="input-group-text col-2">Weight</span>
+                        <span class="input-group-text col-2">Unit Cost</span>
+                        <span class="input-group-text col-2">Total</span>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-text col-1">
+                            <input type="checkbox" id="Check" aria-label="Checkbox for following text input" checked disabled>
+                        </div>
+                        <span class="input-group-text col-3 text-wrap" >Drain Rock 2-2 1/2 inches</span>
+                        <span class="input-group-text col-2 text-wrap" id="drainRockQty"></span>
+                        <span class="input-group-text col-2 text-wrap" id="drainRockWght"></span>
+                        <span class="input-group-text col-2 text-wrap" id="drainRockUC"></span>
+                        <span class="input-group-text col-2 text-wrap" id="drainRockTotal"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-text col-1">
+                            <input type="checkbox" id="weddBarrierCheck" aria-label="Checkbox for following text input" onchange="calc()">
+                        </div>
+                        <span class="input-group-text col-3">Weed Barrier</span>
+                        <span class="input-group-text col-2" id="weedBarrierQty"></span>
+                        <span class="input-group-text col-2" id="weedBarrierWght"></span>
+                        <span class="input-group-text col-2" id="weedBarrierUC"></span>
+                        <span class="input-group-text col-2" id="weedBarrierTotal"></span>
+                    </div>
+                    <div class="input-group">
+                        <div class="col-12">
+                            <h5 class="card-title">Infill</h5>
+                        </div>
+                        <span class="input-group-text col-3">Type</span>
+                        <span class="input-group-text col-3">Pile Hieght (inches)</span>
+                        <span class="input-group-text col-2">Weight</span>
+                        <span class="input-group-text col-2">Cost/lb</span>
+                        <span class="input-group-text col-2">Total</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="col-3">
+                            <select name="sandTypeSelect" class="form-control col-3" id="sandTypeSelect" aria-label="tipPercentage" aria-describedby="basic-addon0" onchange="calc()">
+                                <option value="silicaSand" selected="selected">Silica Sand</option>
+                                <option value="greenSand">Green Sand</option>
+                                <option value="superFill">SuperFill</option>
+                                <option value="zeoLite">ZeoLite</option>
+                                <option value="tCool">TCool</option>
+                            </select> 
+                        </div>
+                        <span class="input-group-text col-3">Weed Barrier</span>
+                        <span class="input-group-text col-2 qty"></span>
+                        <span class="input-group-text col-2 weight"></span>
+                        <span class="input-group-text col-2 unitCost"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-4" id="basic-addon2">Total Cost</span>
+                        <span class="input-group-text col-1" id="basic-addon0">$</span>
+                        <input type="text" class="form-control col-7" id="totalCost" aria-label="totalCost" aria-describedby="basic-addon2" disabled>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-4" id="basic-addon3">Per SQ.FT</span>
+                        <span class="input-group-text col-1" id="basic-addon0">$</span>
+                        <input type="text" class="form-control col-7" id="perSQFT" aria-label="perSQFT" aria-describedby="basic-addon3" disabled>
+                    </div>
+                    <!-- display result -->
+                    <div class="text-center my-5" style="font-size: 20px;">
+                        <span id="primeCheck"></span>
+                    </div>
+                    <div class="text-center my-5" style="font-size: 20px;">
+                        <span id="divisors"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    document.getElementById("weedBarrierkQty").innerHTML = document.getElementById('areaSize').value;
+    document.getElementById("weedBarrierkUC").innerHTML = `${WEEDBARRIERUC}sq.ft`;
+    function clearDisplay()
+    {
+        document.getElementById('tipAmount').setAttribute('value', '');
+        document.getElementById('grandTotal').setAttribute('value', '');
+    }
+    function calc() {
+        let areaSize = document.getElementById('areaSize').value;
+        let sandTypeSelect = document.getElementById('sandTypeSelect').value;
+        if(areaSize == '')
+        {
+            document.getElementById('alert').innerHTML = '<div class="alert alert-danger" role="alert">You must enter an amount!</div>';
+            clearDisplay();
+        }
+        else if(isNaN(areaSize))
+        {
+            document.getElementById('alert').innerHTML = `<div class="alert alert-danger" role="alert">"${total}" is not a valid amount!</div>`;
+            clearDisplay();
+        }
+        else if(areaSize <= 0)
+        {
+            document.getElementById('alert').innerHTML = '<div class="alert alert-danger" role="alert">Amount can not be negative or zero!</div>';
+            clearDisplay();
+        }
+        else
+        {
+            const DRAINROCKQTY = .01;
+            const DRAINROCKWGHT = 20.83;
+            const DRAINROCKWGHTPERTON = 8.50;
+            const DRAINROCKUC = 7.16;
+            const WEEDBARRIERUC = 0.30;
+
+            areaSize = Number(areaSize);
+            document.getElementById('alert').innerHTML = '';
+            let drainRockQty = areaSize * DRAINROCKQTY;
+            document.getElementById("drainRockQty").innerHTML = `${drainRockQty.toFixed(2)} yd3`;
+            let drainRockWght = areaSize * DRAINROCKWGHT;
+            let drainRockWghtTons = (drainRockWght / 2000);
+            document.getElementById("drainRockWght").innerHTML = `${drainRockWght.toFixed(2)} lbs - ${drainRockWghtTons.toFixed(2)} ton(s)`;
+            document.getElementById("drainRockUC").innerHTML = `$${DRAINROCKUC}/yd3`;
+            let drainRockTotal = drainRockQty * DRAINROCKUC;
+            document.getElementById("drainRockTotal").innerHTML = `$${drainRockTotal.toFixed(2)}`;
+
+            if(document.getElementById('weddBarrierCheck').value == 'checked')
+            {
+            }
+        }
+    }
+</script>
+</body>
+</html>
